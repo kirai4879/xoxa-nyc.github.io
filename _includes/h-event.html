@@ -1,0 +1,114 @@
+{% assign place_index = event.location | replace: " ", "_" %}
+{% assign place = site.data.places[place_index] %}
+{% assign event_description = event.content | strip %}
+{% assign placeholder_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
+
+{% comment %}
+Old Microformat converters need `vevent` class values
+to be set on DIV elements, not ARTICLEs.
+{% endcomment %}
+<div class="h-event vevent">
+<article itemscope="itemscope" itemtype="https://schema.org/{{ event.type | default: "Event" }}">
+    <header>
+        <a href="{{ event.url | relative_url }}" class="u-url url" itemprop="url">
+            <img src="{{ event.image | default: placeholder_image }}" alt="" itemprop="image" />
+            <h2 class="p-summary summary p-name" itemprop="name">
+                    {{ event.name | default: event.title }}
+            </h2>
+        </a>
+        <ul class="event-meta">
+            <li class="event-datetime">
+                <abbr class="dt-start dtstart" title="{{ event.startDate | date_to_xmlschema }}">
+                    <span>{{ event.startDate | date: site.date_format }}</span>
+                    <span>{{ event.startDate | date: site.time_format }}</span>
+                </abbr>
+                <abbr class="dt-end dtend" title="{{ event.endDate | date_to_xmlschema }}">
+                    <span>{{ event.endDate | date: site.date_format }}</span>
+                    <span>{{ event.endDate | date: site.time_format }}</span>
+                </abbr>
+                <meta itemprop="startDate" content="{{ event.startDate | date_to_xmlschema }}" />
+                <meta itemprop="endDate" content="{{ event.endDate | date_to_xmlschema }}" />
+            </li><!-- .event-datetime -->
+            <li class="p-location location" itemprop="location" itemscope="itemscope" itemtype="https://schema.org/{{ place.type | default: "Place" }}">
+                {% if place %}
+                {% include h-card.html entity=place isOrg=true %}
+                {% else %}
+                <span itemprop="address">{{ event.location }}</span>
+                {% endif %}
+            </li><!-- .p-location -->
+            <li class="event-status">
+                {% include h-event-status.html event=event %}
+            </li>
+            {% if event_description %}
+            {% endif %}
+        </ul>
+    </header>
+
+    {% if event_description %}
+    <section itemprop="description">
+        <div class="p-description description">
+            {{ event_description }}
+        </div><!-- .p-description -->
+    </section>
+    {% endif %}
+
+    {% if event.performers %}
+    <section class="performances">
+        <h2>Performances by</h2>
+        <ul>
+        {% for performer_index in event.performers %}
+        {% assign performer_index = performer_index | replace: " ", "_" %}
+        {% if site.data.people[performer_index] %}
+            {% assign performer = site.data.people[performer_index] %}
+            {% assign performer_type = "Person" %}
+        {% elsif site.data.organizations[performer_index] %}
+            {% assign performer = site.data.organizations[performer_index] %}
+            {% assign performer_type = "Organization" %}
+        {% else %}
+            {% assign performer = performer_index %}
+            {% assign performer_type = nil %}
+        {% endif %}
+        <li itemprop="performer"{% if performer_type %} itemscope="itemscope" itemtype="https://schema.org/{{ performer_type }}"{% endif %}>
+            {% if performer_type == "Organization" %}
+            {% include h-card.html entity=performer isOrg=true %}
+            {% elsif performer_type %}
+            {% include h-card.html entity=performer %}
+            {% else %}
+            {{ performer }}
+            {% endif %}
+        </li>
+        {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <section class="offers">
+
+        {% if event.isAccessibleForFree %}
+        <p>
+            Free!
+            <meta itemprop="isAccessibleForFree" content="true" />
+        </p>
+        {% endif %}
+
+        {% if event.offers %}
+        <p>Buy tickets:</p>
+        <ul itemprop="offers" itemscope="itemscope" itemtype="https://schema.org/AggregateOffer">
+        {% for offer in event.offers %}
+        <li>
+            {% include schema-offer.html offer=event.offer %}
+        </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+    </section><!-- .offers -->
+
+    <footer>
+    </footer>
+
+    {% for sameAs in event.sameAs %}
+    <meta itemprop="sameAs" content="{{ sameAs }}" />
+    {% endfor %}
+</article>
+</div><!-- .h-event -->

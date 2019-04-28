@@ -7,6 +7,9 @@ main:
     text: About
     title_text: Learn more about us!
   -
+    url: /events/
+    text: Events
+  -
     url: /contact/
     text: Contact
   -

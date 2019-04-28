@@ -7,13 +7,14 @@
 #####################################################################
 
 # Site settings
-title: Example Site
+title: XOXA NYC
 description: >-
-    Site description.
+    XOXA is dedicated to cultivating an inclusive queer community through art, music and performance.
+    XOXA curates the best of the Brooklyn underground for femmes and allies.
 human_language: en-US # The primary human language you write in.
 timezone: America/New_York
 
-main_logo: main-logo.png
+main_logo: logo.xoxa.white-on-black.1700x510.png
 
 # Build settings
 markdown: kramdown
@@ -33,9 +34,21 @@ rss:
     update_period:    weekly # Acceptable values are: `hourly`, `daily`, `weekly`, `monthly`, or `yearly`.
     update_frequency: 1      # How many times in the feed_update_period the feed is updated.
     ttl:              60     # Number of minutes indicating how long to cache the channel content.
-    editor_email:     editor@example.com    # Email of the person responsible for channel content.
+    editor_email:     kira@xoxanyc.com      # Email of the person responsible for channel content.
     webmaster_email:  webmaster@example.com # Email of the person responsible for technical issues.
     image:            example-rss-image.png # Image for the RSS feed, if different from the main_logo.
+
+
+# Collections.
+#
+# Collections are a Jekyll feature that takes structured data and can
+# render a page for each item in that data structure. For example, you
+# can make a collection of baking recipes and then, for each recipe in
+# the collection, you can make a page with its own Web address to show
+# the recipe on your Web site.
+collections:
+    events:
+        output: true
 
 defaults:
   -
@@ -43,3 +56,9 @@ defaults:
       path: "" # an empty string here means all files in the project
     values:
       layout: default
+
+iCalendar:
+    defaults:
+        location: "Brooklyn, NY"
+        status: CONFIRMED
+        image: event-image-placeholder.jpg
