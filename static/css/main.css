@@ -2,8 +2,8 @@
  * @group Variables.
  */
 :root {
-    --main-color: black;
-    --accent-color: red;
+    --main-color: #FFF;
+    --accent-color: #D02D54;
 }
 
 /**
@@ -27,8 +27,94 @@ figure {
 }
 
 body {
-    background: #fff;
+    background: #000;
     color: var(--main-color);
+    font: 24px/2rem Arial;
+}
+
+a {
+    color: inherit;
+    transition: color .5s;
+}
+a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+#Masthead,
+#MainContent,
+#MainFooter {
+    max-width: 760px;
+    margin: 0 auto;
+}
+#Masthead {
+    display: flex;
+    padding: 30px 10px 5px 10px;
+    border-bottom: 1px solid var(--accent-color);
+}
+#Masthead h1 {
+    width: 322px;
+    margin: 0;
+}
+#Masthead img {
+    max-width: 100%;
+}
+#Masthead img:hover {
+    filter: hue-rotate(360deg);
+    transition: filter 2s;
+}
+#MainNavigation {
+    flex-grow: 1;
+    align-self: end;
+}
+#MainNavigation ul {
+    display: flex;
+    justify-content: right;
+}
+#MainNavigation li {
+    margin: 0 0 10px 20px;
+    font-size: 36px;
+}
+#MainNavigation a {
+    text-decoration: none;
+}
+#MainNavigation .current {
+    color: var(--accent-color);
+}
+
+#MainFooter {
+    border-top: 1px solid var(--accent-color);
+    font-size: 14px;
+    text-align: center;
+}
+#MainFooter .u-photo,
+#MainFooter .u-email {
+    display: none;
+}
+
+#home-page main,
+#home-page #MainFooter {
+    display: none;
+}
+#home-page #Masthead {
+    display: block;
+    margin: 100px auto;
+    border: none;
+}
+#home-page #Masthead h1 {
+    width: auto;
+}
+#home-page #MainNavigation li {
+    flex-grow: 1;
+    font-size: 34pt;
+    text-align: center;
+    margin: 30px 0 0 0;
+}
+#home-page #MainNavigation li:first-child {
+    text-align: left;
+}
+#home-page #MainNavigation li:last-child {
+    text-align: right;
 }
 
 /**
@@ -37,4 +123,14 @@ body {
  * Put small-screen styles here.
  */
 @media screen and (max-width: 500px) {
+    #home-page #Masthead {
+        margin-top: 20px;
+    }
+    #home-page #Masthead ul {
+        flex-direction: column;
+    }
+    #home-page #MainNavigation li:first-child,
+    #home-page #MainNavigation li:last-child {
+        text-align: center;
+    }
 }
