@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ site.human_language | default: "en" }}">
 {% include head.html %}
-<body id="{{ page.slug | default: page.title | slugify }}-page">
+<body id="{{ page.slug | default: page.title | slugify }}-page" class="{{ page.collection }}">
     {% include masthead.html %}
     <main id="MainContent">
     {{ content }}

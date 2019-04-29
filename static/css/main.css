@@ -7,12 +7,6 @@
 }
 
 /**
- * @group Typography.
- *
- * Put @font-face declarations here.
- */
-
-/**
  * @group Reset.
  */
 html,
@@ -26,10 +20,18 @@ figure {
     list-style-type: none;
 }
 
+/**
+ * @group Typography.
+ */
+@font-face {
+    font-family: "ModernSans Light";
+    src: url("../fonts/ModernSans-Light.otf") format("opentype");
+}
+
 body {
     background: #000;
     color: var(--main-color);
-    font: 24px/2rem Arial;
+    font: 24px/2rem "ModernSans Light", Arial;
 }
 
 a {
@@ -39,6 +41,12 @@ a {
 a:hover {
     color: var(--accent-color);
     text-decoration: underline;
+}
+.icon {
+    width: 1em;
+}
+.icon.calendar {
+    filter: invert(100%);
 }
 
 #Masthead,
@@ -117,6 +125,53 @@ a:hover {
     text-align: right;
 }
 
+.h-event {
+    clear: left;
+    font-size: smaller;
+}
+.h-event img[itemprop="image"] {
+    float: left;
+    width: 300px;
+}
+body.events .h-event img[itemprop="image"] {
+    float: none;
+    width: 100%;
+}
+body.events .h-event header h2,
+body.events .h-event header ul,
+body.events .h-event section,
+body.events .h-event footer {
+    margin-left: 0;
+}
+.h-event header h2,
+.h-event header ul,
+.h-event section,
+.h-event footer {
+    margin-left: 330px;
+}
+.h-event .p-street-address,
+.h-event .p-country {
+    display: block;
+}
+.h-event .p-locality::after,
+.h-event .p-region::after {
+    content: ", ";
+}
+.h-event .event-datetime abbr {
+    text-decoration: none;
+}
+.h-event .dt-end span:first-child,
+.h-event .p-location img,
+.h-event .event-status {
+    display: none;
+}
+.h-event section {
+    clear: left;
+}
+.h-event footer {
+    margin: 1rem 0;
+}
+
 /**
  * @group Mobile styles.
  *
@@ -132,5 +187,51 @@ a:hover {
     #home-page #MainNavigation li:first-child,
     #home-page #MainNavigation li:last-child {
         text-align: center;
+    }
+
+    body:not(#home-page) #Masthead {
+        display: block;
+    }
+    body:not(#home-page) #Masthead h1 {
+        width: auto;
+    }
+    body:not(#home-page) #MainNavigation::before {
+        content: "\2630";
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        color: var(--main-color);
+        font-size: 36px;
+        line-height: 1em;
+        cursor: pointer;
+    }
+    body:not(#home-page) #MainNavigation ul {
+        display: block;
+        margin-top: 2rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 1s;
+    }
+    body:not(#home-page) #MainNavigation:hover ul {
+        max-height: 75vh;
+        transition: max-height 1s;
+    }
+    body:not(#home-page) #MainNavigation li {
+        display: list-item;
+        line-height: 1.5em;
+        text-align: center;
+    }
+    #MainContent {
+        padding: 0 1em;
+    }
+    .h-event img[itemprop="image"] {
+        float: none;
+        width: 100%;
+    }
+    .h-event header h2,
+    .h-event header ul,
+    .h-event section,
+    .h-event footer {
+        margin-left: 0;
     }
 }

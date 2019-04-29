@@ -1,7 +1,17 @@
 {% assign place_index = event.location | replace: " ", "_" %}
 {% assign place = site.data.places[place_index] %}
-{% assign event_description = event.content | strip %}
+{% if include.excerpt %}
+    {% assign event_description = event.excerpt | strip %}
+{% else %}
+    {% assign event_description = event.content | strip %}
+{% endif %}
 {% assign placeholder_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
+{% assign x = event.image | split: ":" | first %}
+{% if "http" == x or "https" == x %}
+    {% assign event_image = x %}
+{% else %}
+    {% assign event_image = "/static/images/" | append: x | relative_url %}
+{% endif %}
 
 {% comment %}
 Old Microformat converters need `vevent` class values
@@ -11,7 +21,7 @@ to be set on DIV elements, not ARTICLEs.
 <article itemscope="itemscope" itemtype="https://schema.org/{{ event.type | default: "Event" }}">
     <header>
         <a href="{{ event.url | relative_url }}" class="u-url url" itemprop="url">
-            <img src="{{ event.image | default: placeholder_image }}" alt="" itemprop="image" />
+            <img src="{{ event_image | default: placeholder_image }}" alt="" itemprop="image" />
             <h2 class="p-summary summary p-name" itemprop="name">
                     {{ event.name | default: event.title }}
             </h2>
@@ -22,6 +32,7 @@ to be set on DIV elements, not ARTICLEs.
                     <span>{{ event.startDate | date: site.date_format }}</span>
                     <span>{{ event.startDate | date: site.time_format }}</span>
                 </abbr>
+                &ndash;
                 <abbr class="dt-end dtend" title="{{ event.endDate | date_to_xmlschema }}">
                     <span>{{ event.endDate | date: site.date_format }}</span>
                     <span>{{ event.endDate | date: site.time_format }}</span>
@@ -29,6 +40,12 @@ to be set on DIV elements, not ARTICLEs.
                 <meta itemprop="startDate" content="{{ event.startDate | date_to_xmlschema }}" />
                 <meta itemprop="endDate" content="{{ event.endDate | date_to_xmlschema }}" />
             </li><!-- .event-datetime -->
+            {% if event.doorTime %}
+            <li class="event-doortime">
+                (Doors at {{ event.doorTime | date: site.time_format }})
+                <meta itemprop="doorTime" content="{{ event.doorTime | date_to_xmlschema }}" />
+            </li><!-- .event-doortime -->
+            {% endif %}
             <li class="p-location location" itemprop="location" itemscope="itemscope" itemtype="https://schema.org/{{ place.type | default: "Place" }}">
                 {% if place %}
                 {% include h-card.html entity=place isOrg=true %}
@@ -39,15 +56,38 @@ to be set on DIV elements, not ARTICLEs.
             <li class="event-status">
                 {% include h-event-status.html event=event %}
             </li>
-            {% if event_description %}
-            {% endif %}
         </ul>
     </header>
+
+    <section class="offers">
+
+        {% if event.isAccessibleForFree %}
+        <p>
+            Free!
+            <meta itemprop="isAccessibleForFree" content="true" />
+        </p>
+        {% endif %}
+
+        {% if event.offers %}
+        <p>Buy tickets:</p>
+        <ul itemprop="offers" itemscope="itemscope" itemtype="https://schema.org/AggregateOffer">
+        {% for offer in event.offers %}
+        <li>
+            {% include schema-offer.html offer=event.offer %}
+        </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+    </section><!-- .offers -->
 
     {% if event_description %}
     <section itemprop="description">
         <div class="p-description description">
             {{ event_description }}
+            {% if include.excerpt %}
+            <p><a href="{{ event.url }}">Read more…</a></p>
+            {% endif %}
         </div><!-- .p-description -->
     </section>
     {% endif %}
@@ -82,29 +122,28 @@ to be set on DIV elements, not ARTICLEs.
     </section>
     {% endif %}
 
-    <section class="offers">
-
-        {% if event.isAccessibleForFree %}
-        <p>
-            Free!
-            <meta itemprop="isAccessibleForFree" content="true" />
-        </p>
+    <footer>
+        {% if include.download_link %}
+        <p><a href="https://h2vx.com/ics/get-cal.php?uri={{ event.url | absolute_url | cgi_escape }}">Save this event to your calendar</a>.</p>
         {% endif %}
 
-        {% if event.offers %}
-        <p>Buy tickets:</p>
-        <ul itemprop="offers" itemscope="itemscope" itemtype="https://schema.org/AggregateOffer">
-        {% for offer in event.offers %}
-        <li>
-            {% include schema-offer.html offer=event.offer %}
-        </li>
-        {% endfor %}
+        {% if include.paginate %}
+        {% if event.next or event.previous %}
+        <ul class="Pagination">
+            {% if event.next %}
+            <li class="next-page">
+                <a href="{{ event.next.url }}">&larr; Previous event</a>{% comment %} "Previous" events are chronology next. {% endcomment %}
+            </li>
+            {% endif %}
+
+            {% if event.previous %}
+            <li class="prev-page">
+                <a href="{{ event.previous.url }}">Next event &rarr;</a>{% comment %} "Next" events are chronology previous. {% endcomment %}
+            </li>
+            {% endif %}
         </ul>
         {% endif %}
-
-    </section><!-- .offers -->
-
-    <footer>
+        {% endif %}
     </footer>
 
     {% for sameAs in event.sameAs %}
