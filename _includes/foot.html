@@ -11,6 +11,6 @@
         {% if site.data.contact_info.telephone %}<a href="tel:{{ site.data.contact_info.telephone | replace: "-", "" | replace: "(", "" | replace: ")", "" | replace: ".", "" }}" class="p-tel tel"><span itemprop="telephone">{{ site.data.contact_info.telephone }}</span></a>{% endif %}
         {% if site.data.contact_info.email %}<a href="mailto:{{ site.data.contact_info.email }}" class="u-email email"><span itemprop="email">{{ site.data.contact_info.email }}</span></a>{% endif %}
     </p>
-    <p>(<a href="https://h2vx.com/vcf/get-contact.php?uri={{ "/" | absolute_url | cgi_escape }}">Add our contact information to your address book</a>.)</p>
+    <p>(<a href="https://h2vx.com/vcf/get-contact.php?uri={{ page.url | absolute_url | cgi_escape }}">Add our contact information to your address book</a>.)</p>
     <p>Website by <a href="https://shiftctrl.space/">Shift-CTRL Space</a>.</p>
 </footer>

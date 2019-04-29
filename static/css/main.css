@@ -125,6 +125,18 @@ a:hover {
     text-align: right;
 }
 
+/**
+ * @group Microformats and structured data.
+ */
+.h-card .p-name {
+    line-height: 2em;
+}
+.h-card .u-photo {
+    height: 2em;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
 .h-event {
     clear: left;
     font-size: smaller;
@@ -132,16 +144,6 @@ a:hover {
 .h-event img[itemprop="image"] {
     float: left;
     width: 300px;
-}
-body.events .h-event img[itemprop="image"] {
-    float: none;
-    width: 100%;
-}
-body.events .h-event header h2,
-body.events .h-event header ul,
-body.events .h-event section,
-body.events .h-event footer {
-    margin-left: 0;
 }
 .h-event header h2,
 .h-event header ul,
@@ -170,6 +172,18 @@ body.events .h-event footer {
 }
 .h-event footer {
     margin: 1rem 0;
+}
+
+/* Single event page. */
+body.events .h-event img[itemprop="image"] {
+    float: none;
+    width: 100%;
+}
+body.events .h-event header h2,
+body.events .h-event header ul,
+body.events .h-event section,
+body.events .h-event footer {
+    margin-left: 0;
 }
 
 /**

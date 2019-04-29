@@ -1,10 +1,41 @@
 {% assign entity = include.entity %}
+{% assign entity_photo = nil %}
+{% assign entity_logo = nil %}
+{% assign entity_image = nil %}
+
+{% if entity.photo %}
+{% assign x = entity.photo | split: ":" | first %}
+{% if "http" == x or "https" == x %}
+    {% assign entity_photo = entity.photo %}
+{% else %}
+    {% assign entity_photo = "/static/images/" | append: x | relative_url %}
+{% endif %}
+{% endif %}
+
+{% if entity.logo %}
+{% assign x = entity.logo | split: ":" | first %}
+{% if "http" == x or "https" == x %}
+    {% assign entity_logo = entity.logo %}
+{% else %}
+    {% assign entity_logo = "/static/images/" | append: x | relative_url %}
+{% endif %}
+{% endif %}
+
+{% if entity.image %}
+{% assign x = entity.image | split: ":" | first %}
+{% if "http" == x or "https" == x %}
+    {% assign entity_image = entity.image %}
+{% else %}
+    {% assign entity_image = "/static/images/" | append: x | relative_url %}
+{% endif %}
+{% endif %}
+
 <div class="h-card vcard">
 
     {% if entity.name %}
     <div class="p-name fn{% if include.isOrg %} org{% endif %}" itemprop="name">
         <img
-            src="{{ entity.photo | default: entity.logo | default: entity.image | default: site.iCalendar.defaults.image | absolute_url }}"
+            src="{{ entity_photo | default: entity_logo | default: entity_image | default: site.iCalendar.defaults.image | absolute_url }}"
             alt=""
             class="u-photo photo"
             itemprop="image logo photo" />
