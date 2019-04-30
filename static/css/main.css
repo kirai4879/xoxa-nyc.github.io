@@ -34,6 +34,10 @@ body {
     font: 24px/2rem "ModernSans Light", Arial;
 }
 
+h2 {
+    margin: 1rem 0 0 0;
+}
+
 a {
     color: inherit;
     transition: color .5s;
@@ -136,6 +140,13 @@ a:hover {
     border-radius: 50%;
     vertical-align: middle;
 }
+.h-adr .p-country {
+    display: none;
+}
+
+.h-events > li {
+    margin-bottom: 5rem;
+}
 
 .h-event {
     clear: left;
@@ -151,12 +162,10 @@ a:hover {
 .h-event footer {
     margin-left: 330px;
 }
-.h-event .p-street-address,
-.h-event .p-country {
+.h-event .p-street-address {
     display: block;
 }
-.h-event .p-locality::after,
-.h-event .p-region::after {
+.h-event .p-locality::after {
     content: ", ";
 }
 .h-event .event-datetime abbr {
@@ -166,8 +175,18 @@ a:hover {
 .h-event .p-location img,
 .h-event .event-status,
 .h-event .organizers .h-card .u-photo,
-.h-event .organizers .h-card .h-adr {
+.h-event .organizers .h-card .adr {
     display: none;
+}
+.h-event .organizers div,
+.h-event .organizers li {
+    display: inline-block;
+}
+.h-event .organizers ul > li:not(:last-child)::after {
+    content: ", ";
+}
+.h-event .organizers ul > li:last-child::before {
+    content: "and ";
 }
 .h-event section {
     clear: left;

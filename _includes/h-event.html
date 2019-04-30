@@ -4,7 +4,7 @@
 {% assign place = site.data.places[place_index] %}
 
 {% if include.excerpt %}
-    {% assign event_description = event.excerpt | strip %}
+    {% assign event_description = event.content | markdownify | strip_html | truncatewords: 20, "" | strip %}
 {% else %}
     {% assign event_description = event.content | strip %}
 {% endif %}
@@ -24,6 +24,7 @@ to be set on DIV elements, not ARTICLEs.
 <div class="h-event vevent">
 <article itemscope="itemscope" itemtype="https://schema.org/{{ event.type | default: "Event" }}">
     <header>
+
         <a href="{{ event.url | relative_url }}" class="u-url url" itemprop="url">
             <img src="{{ event_image | default: placeholder_image }}" alt="" itemprop="image" />
             <h2 class="p-summary summary p-name" itemprop="name">
@@ -88,9 +89,8 @@ to be set on DIV elements, not ARTICLEs.
     {% if event_description %}
     <section itemprop="description">
         <div class="p-description description">
-            {{ event_description }}
-            {% if include.excerpt %}
-            <p><a href="{{ event.url }}">Read more…</a></p>
+            {{ event_description -}}
+            {%- if include.excerpt -%}… (<a href="{{ event.url }}">read more</a>)
             {% endif %}
         </div><!-- .p-description -->
     </section>
@@ -109,7 +109,7 @@ to be set on DIV elements, not ARTICLEs.
 
     {% if event.organizers %}
     <section class="organizers">
-        <h2>Organized by</h2>
+        <h2>Presented by</h2>
         <ul>
         {% for key in event.organizers %}
             {% include schema-OrganizationOrPerson.html property="organizer" key=key html_element="li" %}

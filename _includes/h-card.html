@@ -31,7 +31,6 @@
 {% endif %}
 
 <div class="h-card vcard">
-
     {% if entity.name %}
     <div class="p-name fn{% if include.isOrg %} org{% endif %}" itemprop="name">
 
@@ -63,5 +62,4 @@
     {% if entity.maximumAttendeeCapacity %}
     <meta itemprop="maximumAttendeeCapacity" content="{{ entity.maximumAttendeeCapacity }}" />
     {% endif %}
-
 </div><!-- .h-card -->
