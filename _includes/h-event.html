@@ -1,11 +1,14 @@
 {% assign place_index = event.location | replace: " ", "_" %}
 {% assign place = site.data.places[place_index] %}
+
 {% if include.excerpt %}
     {% assign event_description = event.excerpt | strip %}
 {% else %}
     {% assign event_description = event.content | strip %}
 {% endif %}
+
 {% assign placeholder_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
+
 {% assign x = event.image | split: ":" | first %}
 {% if "http" == x or "https" == x %}
     {% assign event_image = x %}
@@ -97,12 +100,12 @@ to be set on DIV elements, not ARTICLEs.
         <h2>Performances by</h2>
         <ul>
         {% for performer_index in event.performers %}
-        {% assign performer_index = performer_index | replace: " ", "_" %}
-        {% if site.data.people[performer_index] %}
-            {% assign performer = site.data.people[performer_index] %}
+        {% assign p = performer_index | replace: " ", "_" %}
+        {% if site.data.people[p] %}
+            {% assign performer = site.data.people[p] %}
             {% assign performer_type = "Person" %}
-        {% elsif site.data.organizations[performer_index] %}
-            {% assign performer = site.data.organizations[performer_index] %}
+        {% elsif site.data.organizations[p] %}
+            {% assign performer = site.data.organizations[p] %}
             {% assign performer_type = "Organization" %}
         {% else %}
             {% assign performer = performer_index %}

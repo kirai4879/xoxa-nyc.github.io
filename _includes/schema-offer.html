@@ -17,4 +17,8 @@
     {% if offer.availability %}
     <link itemprop="availability" content="https://schema.org/{{ offer.availability }}" />
     {% endif %}
+
+    {% if offer.availabilityEnds %}
+    <meta itemprop="availabilityEnds" content="{{ offer.availabilityEnds | date_to_xmlschema }}" />
+    {% endif %}
 </div>

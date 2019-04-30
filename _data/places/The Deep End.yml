@@ -1,0 +1,15 @@
+name: The Deep End
+type: BarOrPub
+url: https://thedeepend.nyc/
+address:
+    streetAddress: 1080 Wyckoff Avenue
+    addressLocality: Ridgewood
+    addressRegion: NY
+    postalCode: 11385
+    addressCountry: United States
+telephone: (347) 689-4996
+logo: logo.the-deep-end.jpg
+description: >
+    The Deep End is a new bar/restaurant serving delicious food and drinks to the Bushwick/Ridgewood community.
+sameAs:
+    - https://www.facebook.com/pg/DeepEndNYC/
