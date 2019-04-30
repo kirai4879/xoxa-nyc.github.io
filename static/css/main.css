@@ -232,6 +232,7 @@ body.events .h-event footer {
     }
     body:not(#home-page) #MainNavigation li {
         display: list-item;
+        margin-left: 0;
         line-height: 1.5em;
         text-align: center;
     }

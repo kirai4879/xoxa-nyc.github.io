@@ -1,7 +1,7 @@
 ---
 title: XOXA 2 Year Anniversary Celebration
-startDate: 2019-04-27 22:00 -0400
-endDate: 2019-04-28 04:00 -0400
+startDate: 2019-04-27 22:00:00 -0400
+endDate: 2019-04-28 04:00:00 -0400
 location: The Keep
 image: xoxa-2-year-anniversary-celebration.jpg
 sameAs:

@@ -21,6 +21,8 @@ markdown: kramdown
 exclude:
     - vendor
     - README.md
+    - Gemfile
+    - Gemfile.lock
 
 # Blog settings.
 paginate: 5    # How many posts per HTML page.
@@ -49,6 +51,7 @@ rss:
 collections:
     events:
         output: true
+        permalink: /:collection/:name
 
 defaults:
   -
