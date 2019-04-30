@@ -164,7 +164,9 @@ a:hover {
 }
 .h-event .dt-end span:first-child,
 .h-event .p-location img,
-.h-event .event-status {
+.h-event .event-status,
+.h-event .organizers .h-card .u-photo,
+.h-event .organizers .h-card .h-adr {
     display: none;
 }
 .h-event section {

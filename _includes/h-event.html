@@ -100,27 +100,19 @@ to be set on DIV elements, not ARTICLEs.
     <section class="performances">
         <h2>Performances by</h2>
         <ul>
-        {% for performer_index in event.performers %}
-        {% assign p = performer_index | replace: " ", "_" %}
-        {% if site.data.people[p] %}
-            {% assign performer = site.data.people[p] %}
-            {% assign performer_type = "Person" %}
-        {% elsif site.data.organizations[p] %}
-            {% assign performer = site.data.organizations[p] %}
-            {% assign performer_type = "Organization" %}
-        {% else %}
-            {% assign performer = performer_index %}
-            {% assign performer_type = nil %}
-        {% endif %}
-        <li itemprop="performer"{% if performer_type %} itemscope="itemscope" itemtype="https://schema.org/{{ performer_type }}"{% endif %}>
-            {% if performer_type == "Organization" %}
-            {% include h-card.html entity=performer isOrg=true %}
-            {% elsif performer_type %}
-            {% include h-card.html entity=performer %}
-            {% else %}
-            {{ performer }}
-            {% endif %}
-        </li>
+        {% for key in event.performers %}
+            {% include schema-OrganizationOrPerson.html property="performer" key=key html_element="li" %}
+        {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if event.organizers %}
+    <section class="organizers">
+        <h2>Organized by</h2>
+        <ul>
+        {% for key in event.organizers %}
+            {% include schema-OrganizationOrPerson.html property="organizer" key=key html_element="li" %}
         {% endfor %}
         </ul>
     </section>

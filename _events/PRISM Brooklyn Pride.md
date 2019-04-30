@@ -6,6 +6,9 @@ location: 3 Dollar Bill
 image: prism-brooklyn-pride.jpg
 sameAs:
     - https://www.facebook.com/events/397715167623078/
+organizers:
+    - XOXA
+    - DreamHaus
 performers:
     - Bean and Tanya Karina
 offers:
