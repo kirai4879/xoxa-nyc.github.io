@@ -52,6 +52,7 @@ collections:
     events:
         output: true
         permalink: /:collection/:name
+        sort_by: startDate # Not yet implemented. See https://github.com/jekyll/jekyll/pull/7427
 
 defaults:
   -

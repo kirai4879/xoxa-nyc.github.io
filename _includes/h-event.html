@@ -1,3 +1,5 @@
+{% assign event = include.event %}
+
 {% assign place_index = event.location | replace: " ", "_" %}
 {% assign place = site.data.places[place_index] %}
 
@@ -8,7 +10,6 @@
 {% endif %}
 
 {% assign placeholder_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
-
 {% assign x = event.image | split: ":" | first %}
 {% if "http" == x or "https" == x %}
     {% assign event_image = x %}
@@ -130,6 +131,11 @@ to be set on DIV elements, not ARTICLEs.
         <p><a href="https://h2vx.com/ics/get-cal.php?uri={{ event.url | absolute_url | cgi_escape }}">Save this event to your calendar</a>.</p>
         {% endif %}
 
+        {% comment %}
+        <!--
+            Not safe until `sort_by` colletion metadata key is implemented.
+            See https://github.com/jekyll/jekyll/pull/7427
+        -->
         {% if include.paginate %}
         {% if event.next or event.previous %}
         <ul class="Pagination">
@@ -147,6 +153,7 @@ to be set on DIV elements, not ARTICLEs.
         </ul>
         {% endif %}
         {% endif %}
+        {% endcomment %}
     </footer>
 
     {% for sameAs in event.sameAs %}
