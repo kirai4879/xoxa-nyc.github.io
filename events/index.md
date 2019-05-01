@@ -4,7 +4,7 @@ title: Events
 
 # Upcoming events
 
-[<img alt="" src="{{ "/static/images/icon.calendar.svg" | relative_url }}" class="calendar icon" />](webcal:{{ "/events/all.ics" | relative_url }} "Subscribe to our calendar.")
+[<img alt="" src="{{ "/static/images/icon.calendar.svg" | relative_url }}" class="calendar icon" />](webcal:{{ "/events/all.ics" | absolute_url }} "Subscribe to our calendar.")
 [Subscribe to our calendar]({{ "/events/all.ics" | absolute_url }}).
 
 {% assign events = site.events | where_exp: "event", "event.endDate > site.time" | sort: "startDate" %}

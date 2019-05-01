@@ -9,13 +9,16 @@
     {% assign event_description = event.content | strip %}
 {% endif %}
 
-{% assign placeholder_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
+{% assign default_image = "/static/images/" | append: site.iCalendar.defaults.image | relative_url %}
 {% assign x = event.image | split: ":" | first %}
 {% if "http" == x or "https" == x %}
     {% assign event_image = x %}
-{% else %}
+{% elsif x != nil %}
     {% assign event_image = "/static/images/" | append: x | relative_url %}
+{% else %}
+    {% assign event_image = default_image %}
 {% endif %}
+
 
 {% comment %}
 Old Microformat converters need `vevent` class values
@@ -26,7 +29,7 @@ to be set on DIV elements, not ARTICLEs.
     <header>
 
         <a href="{{ event.url | relative_url }}" class="u-url url" itemprop="url">
-            <img src="{{ event_image | default: placeholder_image }}" alt="" itemprop="image" />
+            <img src="{{ event_image | default: default_image }}" alt="" itemprop="image" />
             <h2 class="p-summary summary p-name" itemprop="name">
                     {{ event.name | default: event.title }}
             </h2>
