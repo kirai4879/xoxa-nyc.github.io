@@ -48,9 +48,10 @@ a:hover {
 }
 .icon {
     width: 1em;
+    filter: invert(100%);
 }
 .icon.calendar {
-    filter: invert(100%);
+    margin-right: .25em;
 }
 
 #Masthead,

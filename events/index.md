@@ -4,8 +4,8 @@ title: Events
 
 # Upcoming events
 
-[<img alt="" src="{{ "/static/images/icon.calendar.svg" | relative_url }}" class="calendar icon" />](webcal:{{ "/events/all.ics" | absolute_url }} "Subscribe to our calendar.")
-[Subscribe to our calendar]({{ "/events/all.ics" | absolute_url }}).
+[<img alt="" src="{% link static/images/icon.calendar.svg %}" class="calendar icon" />Subscribe to our calendar.]({{ "/events/all.ics" | absolute_url | replace: "https:", "webcal:" | replace: "http:", "webcal:" }} "Subscribe to our calendar.")
+([<img alt="Download" src="{% link static/images/icon.download.svg %}" class="download icon" />]({% link events/all.ics %} "Export events as iCalendar file."))
 
 {% assign events = site.events | where_exp: "event", "event.endDate > site.time" | sort: "startDate" %}
 <ol class="h-events">
