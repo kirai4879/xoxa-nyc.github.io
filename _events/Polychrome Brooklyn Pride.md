@@ -1,9 +1,9 @@
 ---
-title: PRISM Brooklyn Pride
+title: Polychrome Brooklyn Pride
 startDate: 2019-06-07 22:00:00 -0400
 endDate: 2019-06-08 04:00:00 -0400
 location: 3 Dollar Bill
-image: prism-brooklyn-pride.jpg
+image: polychrome.jpg
 sameAs:
     - https://www.facebook.com/events/397715167623078/
 organizers:
@@ -16,16 +16,16 @@ offers:
       availabilityEnds: 2019-06-07 23:30:00 -0400
       price: 10
       priceCurrency: USD
-      url: https://prismpridebk.eventbrite.com/
+      url: https://polychrome.eventbrite.com/
     - name: G/A Adv - Enter Anytime
       price: 15
       priceCurrency: USD
-      url: https://prismpridebk.eventbrite.com/
+      url: https://polychrome.eventbrite.com/
 ---
 
 DreamHaus NY Presents: 
 
-▼△▼△▼ PRISM ▼△▼△▼
+▼△▼△▼ Polychrome ▼△▼△▼
 
 A Brooklyn Pride Weekend Kick-Off Party for ALL LGBTQA+ family and friends. 
 
